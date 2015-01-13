@@ -1,5 +1,5 @@
 # Rails Tutorial
 
 This is sample application for
-[* Rails*]
+[*Rails*](#)
 by [Rathish]
