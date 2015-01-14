@@ -1,5 +1,6 @@
 class PinsController < ApplicationController
   before_action :set_pin, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
 
   respond_to :html
 
@@ -9,19 +10,21 @@ class PinsController < ApplicationController
   end
 
   def show
+  
     respond_with(@pin)
   end
 
   def new
-    @pin = Pin.new
+    @pin = current_user.pins.new
     respond_with(@pin)
   end
 
   def edit
+    current_user.pins.find(params[:id])
   end
 
   def create
-    @pin = Pin.new(pin_params)
+    @pin = current_user.pins.new(pin_params)
     @pin.save
     respond_with(@pin)
   end
@@ -33,7 +36,7 @@ class PinsController < ApplicationController
 
   def destroy
     @pin.destroy
-    respond_with(@pin)
+    redirect_to pins_path
   end
 
   private
@@ -42,6 +45,6 @@ class PinsController < ApplicationController
     end
 
     def pin_params
-      params.require(:pin).permit(:description)
+      params.require(:pin).permit(:description, :image)
     end
 end

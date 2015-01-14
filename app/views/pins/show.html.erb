@@ -1,11 +1,17 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3"></div>
 		<div class="well">
+			<%= image_tag @pin.image(:large) %>
 			<p>
-			  <strong>Description:</strong>
-			  <%= @pin.description %>
+			   <%= @pin.description %>
 			</p>
+			<p>
+			  <%= @pin.user.name %>
+			</p>
+				<% if current_user == @pin.user %>
+				
 				<%= link_to 'Edit', edit_pin_path(@pin) %> |
+				<% end %>
 				<%= link_to 'Back', pins_path %>
 
 		</div>
